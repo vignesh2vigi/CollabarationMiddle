@@ -1,5 +1,7 @@
 package com.niit.collabarate.restcontroller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.niit.collabarate.model.Error;
 import com.niit.collabarate.model.User;
 import com.niit.collabarate.service.UserService;
-import com.niit.collabarate.model.Error;
 @Controller
 public class UserController {
+	
 	@Autowired
 	private UserService userService;
 	
@@ -105,7 +108,14 @@ public class UserController {
 				return new ResponseEntity<Error>(error,HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 			
+			
+			
 		}
+		@RequestMapping(value="/getuser",method=RequestMethod.GET)
+		public ResponseEntity<?> getuser(HttpSession session){
+			 List<User> user=userService.getuser();
+			 return new ResponseEntity<List<User>>(user,HttpStatus.OK);
+	}
 	
 	
 }
